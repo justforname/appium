@@ -6,9 +6,9 @@
 
 ## 衍合（Rebasing）
 
-每个 pull 请求中的提交（Commits）必须包括 [逻辑的变化](https://github.com/appium/appium/pull/920#issuecomment-21588553)。
+每个 pull 请求中的提交（commits）必须包括 [逻辑的变化](https://github.com/appium/appium/pull/920#issuecomment-21588553)。
 如果有多个作者，确认每个作者有自己的提交。最好不要修改作者信息。
-合并（Merge）提交必须从 pull 请求中 Rebase 。
+合并（merge）提交必须从 pull 请求中 rebase 。
 
 ## 检错（Linting）
 
