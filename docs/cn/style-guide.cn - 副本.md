@@ -50,7 +50,7 @@
     var x=1;
     ```
 
-*   在 lists, objects, function calls 等中，逗号和冒号后面需要添加空格
+*   在 lists, objects, function calls 等中，逗号和冒号后面需要添加一个空格
 
     ```js
     var x = myFunc("lol", {foo: bar, baz: boo});
