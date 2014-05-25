@@ -1,29 +1,24 @@
-# Style guide for contributors
+# 贡献者的代码风格指南 
 
-Thanks for your contribution to Appium! Here are the principles we use when
-writing javascript. Please conform to these so we can merge your pull request
- without going back and forth about style. The main principle is: *make your
- code look like the surrounding code*.
+感谢你们对 Appium 的贡献! 这些是我们书写 javascript 代码时使用的基本原则。
+请遵守这些，避免风格的来回修改，以便我们可以合并你的 pull 请求。
+基本原则就是：*让你的代码看起来和周围的代码一致*。
 
-## Rebasing
+## 衍合（Rebasing）
 
-Commits in a pull request should consist of [logical changes](https://github.com/appium/appium/pull/920#issuecomment-21588553).
-If there are multiple authors, make sure each author has their own commit.
-It's not a good idea to modify author information. Merge commits should be
-rebased out of pull requests.
+每个 pull 请求中的提交（commits）必须包括 [逻辑的变化](https://github.com/appium/appium/pull/920#issuecomment-21588553)。
+如果有多个作者，确认每个作者有自己的提交。最好不要修改作者信息。
+合并（merge）提交必须从 pull 请求中 rebase 。
 
-## Linting
+## 检错（Linting）
 
-All code (except for code in `bootstrap.js` which uses proprietary Apple
-methods) must pass JSLint. To check your code, you can simply run `grunt
-lint` from the Appium repo dir. If you've created a new .js file,
-please make sure it is covered by the wildcards in `grunt.js` or that it is
-added specifically.
+所有的代码 （除了 `bootstrap.js` 的代码，它使用了 Apple 的私有方法） 必须通过 JSLint。
+为了检查你的代码，你可以在 Appium 存储目录下，简单地运行 `grunt lint`。
+如果你已创建一个新的 .js 文件，请确认它在 `grunt.js` 中被通配符覆盖，或者被专门添加。
 
-It's easy to have your code linted as you type, which makes the whole process
-much smoother. We like [jshint](http://www.jshint.com),
-which has integrations with a lot of source code editors. The file `
-.jshintrc` is checked into the repo, and its contents are:
+边输入边检错你的代码是容易实现的，使得整个进程更加顺利。
+我们喜欢 [jshint](http://www.jshint.com), 因为它有与许多源代码编辑器的集成。
+文件 `.jshintrc` 加入到仓库中，它的内容是：
 
 ```json
 {
@@ -39,36 +34,34 @@ which has integrations with a lot of source code editors. The file `
 }
 ```
 
-These defined what we want to see warnings about, etc...,
-while we're editing. See [this page](http://www.jshint.com/platforms/) for
-the list of editors and platforms and how to get your editor set up with
-automatic linting.
+在编辑代码时，这些定义了我们想要看到的警告类型。
+浏览 [网页](http://www.jshint.com/platforms/) ，查看编辑器和平台列表，找到使你的编辑器自动化检错的设置方法。
 
-## Style notes
+## 风格注意点
 
-*   Use two spaces for indentation, *no tabs*
-*   Use single spaces around operators
+*   使用两个空格来缩进, *不要使用 tabs*
+*   在运算符两边，分别添加一个空格
 
     ```js
     var x = 1;
     ```
-    not
+    而不是
     ```js
     var x=1;
-    ```        
-    
-*   Spaces after commas and colons in lists, objects, function calls, etc...
+    ```
+
+*   在 lists, objects, function calls 等中，逗号和冒号后面需要添加一个空格
 
     ```js
     var x = myFunc("lol", {foo: bar, baz: boo});
     ```
-    not
+    而不是
     ```js
     var x = myFunc("lol",{foo:bar,baz:boo});
     ```
 
-*   Always end statements with semicolons
-*   Comma-first
+*   代码语句一般以分号结尾
+*   以逗号开头
 
     ```js
     var x = {
@@ -78,7 +71,8 @@ automatic linting.
     };
     ```
 
-*   Brackets for `function`, `if`, etc... go on same line, `else` gets sandwiched
+
+*   左花括号应该和 `function`, `if` 等 写在同一行, `else` 被夹在两个花括号中间。
 
     ```js
     if (foo === bar) {
@@ -88,7 +82,7 @@ automatic linting.
     }
     ```
 
-*   Space after `if`, `for`, and `function`:
+*   `if`, `for`, 和 `function` 之后需要添加空格：
 
     ```js
     if (foo === bar) {
@@ -99,7 +93,7 @@ automatic linting.
     ```js
     var lol = function (foo) {
     ```
-    not
+    而不是
     ```js
     if(foo === bar) {
     ```
@@ -110,29 +104,29 @@ automatic linting.
     var lol = function(foo) {
     ```
 
-*   Avoid bracketless `if` for one-liners:
+*   只有一行代码时，花括号也应该添加上：
 
     ```js
     if (foo === bar) {
       foo++;
     }
     ```
-    not
+    而不是
     ```js
     if (foo === bar)
       foo++;
     ```
 
-*   Use `===`, not `==`, and `!==`, not `!=` for no surprises
-*   Line length shouldn't be longer than 79 characters
-*   Break up long strings like this:
+*   一般情况下，使用 `===`, 而不是 `==`； 使用 `!==`, 而不是 `!=`
+*   单行长度不应超过79个字符
+*   截断长字符串，方法如下：
 
     ```js
     myFunc("This is a really long string that's longer " +
             "than 79 characters so I broke it up, woo");
     ```
 
-*   Comments should line up with code
+*   注释需要和上一行代码左对齐
 
     ```js
     if (foo === 5) {
@@ -140,7 +134,7 @@ automatic linting.
       // foo++;
     }
     ```
-    not
+    而不是
     ```js
     if (foo === 5) {
       myFunc(foo);
@@ -148,7 +142,7 @@ automatic linting.
     }
     ```
 
-*   Subclassing by extending prototypes
+*   通过拓展原型，来创建子类
 
     ```js
     var _ = require('underscore');
@@ -162,7 +156,7 @@ automatic linting.
     };
 
     // Create a subclass
-    
+
     var SubClass = function () {
         this.init();
     };
@@ -170,7 +164,7 @@ automatic linting.
     _.extend(SubClass.prototype, SuperClass.prototype);
     ```
 
-*   Callbacks are always last in function definitions
+*   函数定义中，最后使用回调函数
 
     ```js
     var foo = function (arg1, arg2, cb) {
@@ -178,52 +172,52 @@ automatic linting.
     };
     ```
 
-*   Define functions as variables
+*   使用变量来定义函数
 
     ```js
     var myFunc = function (a, b, c) {};
     ```
-    not
+    而不是
     ```js
     function myFunc (a, b, c) {}
     ```
-    
-*   Variable names should be camelCased:
+
+*   变量名应该是驼峰式大小写风格:
 
     ```js
     var myVariable = 42;
     ```
-    not
+    而不是
     ```js
     var my_variable = 42;
     ```
 
-*    Check for undefined
+*   检查是否有未定义的变量
 
     ```js
     typeof myVariable === "undefined"
     ```
-    not
+    而不是
     ```js
     myVariable === undefined
     ```
 
-## Test Style:
-    
-Keep on the same line if it makes sense semantically and length is not an issue:
+## 试验风格：
 
-Examples:
+在代码语义通顺和长度许可下，可以保持在同一行：
+
+样例：
 
 ```js
   driver.elementByTagName('el1').should.become("123")
     .nodeify(done);
-  
+
   driver
     .elementsByTagName('el1').should.eventually.have.length(0)
     .nodeify(done);
 ```
 
-Alternatively use extra indents to improve readability:
+或者使用缩进来提高代码的可读性：
 
 ```js
 h.driver

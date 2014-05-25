@@ -1,39 +1,37 @@
-# How to write docs
+# 如何写文档
 
-`#` is used to write a h1 header. Each document must start with a h1 header.
-Don't use the `===` underline method of creating headers.
+`#` 用于第一级标题。每个文档必须以第一级标题开头。
+不要使用 `===` 底线方法来创建标题。
 
-## Subheaders
+## 第二级标题
 
-`##` is used to write subheaders. Don't use the `---` underline method of
-creating sub headers.
+`##` 用于第二级标题。 不要使用 `---` 底线方法来创建第二级标题标题。
 
-### Regular headers
+### 普通标题
 
-`###` is used for headers that don't appear in the table of contents.
-Don't use h4 `####`, h5 `#####`, or h6 `######`.
+`###` 用于不会出现在目录中的标题。
+不要使用第四级标题 `####`, 第五级标题 `#####`, 或者第六级标题 `######`。
 
-### Line breaks
+### 分隔线
 
-Don't use line breaks such as `--` or `---`. This will confuse Slate.
+不要使用分隔线例如 `--` 或者 `---`。 这会使 Slate 混乱.
 
-### Linking
+### 链接
 
-Link to the readme:
+链接到 readme:
 
 `[readme](../../README.md)`
 
-Link to contributing:
+链接到 contributing:
 
 `[contributing](../../CONTRIBUTING.md)`
 
-Link to another document
+链接到其他文档：
 
 `[link text](filename.md)`
 
-To link inside a document, use the `#` from the Slate URL.
+链接到文档的内部, 使用 `#` 来标记 Slate 链接.
 
 `[go direct to json](filename.md#json-wire-protocol-server-extensions)`
 
-Note that hash links will break when the heading changes so linking to
-the start of the doc is preferable (`other.md` instead of `other.md#something`).
+需要注意的是当标题改变时，哈希链接会损坏。所以链接到文档的开头是最好的( `other.md` 替换 `other.md#something` )。
