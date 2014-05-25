@@ -1,18 +1,18 @@
 # 贡献者的代码风格指南
 
-感谢你们对Appium的贡献! 这些是我们书写javascript代码时使用的基本原则。
-请遵守这些，避免风格的来回修改，以便我们可以合并你的pull请求。
+感谢你们对 Appium 的贡献! 这些是我们书写 javascript 代码时使用的基本原则。
+请遵守这些，避免风格的来回修改，以便我们可以合并你的 pull 请求。
 基本原则就是：*让你的代码看起来和周围的代码一致*。
 
 ## 衍合（Rebasing）
 
-每个pull请求中的提交（Commits）必须包括 [逻辑的变化](https://github.com/appium/appium/pull/920#issuecomment-21588553)。
+每个 pull 请求中的提交（Commits）必须包括 [逻辑的变化](https://github.com/appium/appium/pull/920#issuecomment-21588553)。
 如果有多个作者，确认每个作者有自己的提交。最好不要修改作者信息。
-合并（Merge）提交必须从pull请求中衍合。
+合并（Merge）提交必须从 pull 请求中 Rebase 。
 
 ## 检错（Linting）
 
-所有的代码 (除了 `bootstrap.js` 的代码，它使用了Apple的私有方法) 必须通过 JSLint。
+所有的代码 (除了 `bootstrap.js` 的代码，它使用了 Apple 的私有方法) 必须通过 JSLint。
 为了检查你的代码，你可以在 Appium 存储目录下，简单地运行 `grunt lint`。
 如果你已创建一个新的 .js 文件，请确认它在 `grunt.js` 中被通配符覆盖，或者被专门添加。
 
@@ -72,7 +72,7 @@
     ```
 
 
-*   左花括号应该和 `function`, `if`等 写在同一行, `else` 被夹在两个花括号中间。
+*   左花括号应该和 `function`, `if` 等 写在同一行, `else` 被夹在两个花括号中间。
 
     ```js
     if (foo === bar) {
@@ -82,7 +82,7 @@
     }
     ```
 
-*   `if`, `for`, 和 `function`之后需要添加空格：
+*   `if`, `for`, 和 `function` 之后需要添加空格：
 
     ```js
     if (foo === bar) {
