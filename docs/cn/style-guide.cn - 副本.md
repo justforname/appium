@@ -12,7 +12,7 @@
 
 ## 检错（Linting）
 
-所有的代码 (除了 `bootstrap.js` 的代码，它使用了 Apple 的私有方法) 必须通过 JSLint。
+所有的代码 （除了 `bootstrap.js` 的代码，它使用了 Apple 的私有方法） 必须通过 JSLint。
 为了检查你的代码，你可以在 Appium 存储目录下，简单地运行 `grunt lint`。
 如果你已创建一个新的 .js 文件，请确认它在 `grunt.js` 中被通配符覆盖，或者被专门添加。
 
