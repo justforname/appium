@@ -1,102 +1,109 @@
-# Migrating your tests from Appium 0.18.x to Appium 1.x
+# 把appium 0.18.x上的测试用例集迁移到appium1.x上
 
-Appium 1.0 has removed a number of deprecated features from the previous versions. This guide will help you know what needs to change in your test suite to take advantage of Appium 1.0.
+Appium 1.0 已经从先前的版本中移除了一部分过时的特性, 这个指导文档会帮助你了解使用Appium 1.0需要做的具体改变.
 
-## New client libraries
+## 新的客户端库
 
-The biggest thing you need to worry about is using the new Appium client libraries instead of the vanilla WebDriver clients you are currently using. Visit the [Appium client list](appium-clients.md) to find the client for your language. Downloads and instructions for integrating into your code are available on the individual client websites.
+你需要关注的最大的改变是利用新的appium的client libraries来替换原生的WebDriver ciients. 访问[Appium client list](appium-clients.md) 去寻找符合你自己编程语言的客户端库吧. 在每个客户端的网站上都可以找到用于集成到你代码中的依赖库相关介绍和下载
 
-Ultimately, you'll be doing something like (to use Python as an example):
+基本上, 你需要做如下的改变(以Python作为例子)
 
+用
 ```
 from appium import webdriver
 ```
 
-Instead of:
+替换原来的:
 
 ```
 from selenium import webdriver
 ```
 
-## New desired capabilities
+## 新的适配参数
 
-The following capabilities are no longer used:
-
+下面的适配参数将不再使用
 * `device`
 * `version`
 
-Instead, use these capabilities:
+取而代之的是利用下面的配置参数
 
-* `platformName` (either "iOS" or "Android")
-* `platformVersion` (the mobile OS version you want)
-* `deviceName` (the kind of device you want, like "iPhone Simulator")
-* `automationName` ("Selendroid" if you want to use Selendroid, otherwise, this can be omitted)
+* `platformName` ("iOS" 或者 "Android")
+* `platformVersion` (你希望测试的os版本)
+* `deviceName` (你想用的设备, 比如 "iPhone Simulator")
+* `automationName` ("Selendroid" 如果你想使用Selendroid的话, 否则可以省略)
 
-The `app` capability remains the same, but now refers exclusively to non-browser apps. To use browsers like Safari or Chrome, use the standard `browserName` cap. This means that `app` and `browserName` are exclusive.
 
-We have also standardized on camelCase for Appium server caps. That means caps like `app-package` or `app-wait-activity` are now `appPackage` and `appWaitActivity` respectively. Of course, since Android app package and activity are now auto-detected, you should be able to omit them entirely in most cases.
+`app` 配置参数保持不变, 但是特指非浏览器的app, 如果你想使用类似Safari或者Chrome这样的浏览器, 你需要设置`browserName`. 这代表`app`和`browserName`是互斥的.
 
-## New locator strategies
+我们把appium的配置参数都规范为驼峰拼写法(camelCase), 这代表着原来的`app-package`或者`app-wait-activity`现在会变成`appPackage`和`appWaitActivity`. 当然目前android的app package和activity都已经是自动探测了, 大部分情况下你可以省略这两个配置项.
 
-We've removed the following locator strategies:
+## 新的定位方式
+
+我们已经移除了下面的定位方式 
 
 * `name`
 * `tag name`
 
-We have now added the `accessibility_id` strategy to do what `name` used to do. The specifics will be relative to your Appium client.
+我们增加了`accessibility_id`定位方法去做过去`name`做的事情. 具体的细节还得跟你使用的Appium客户端库有关.
 
-`tag name` has been replaced by `class name`. So to find an element by its UI type, use the class name locator strategy for your client.
+`tag name`已经被替换为`class name`. 所以想通过UI的类型来定位某个元素, 你需要使用class name定位方式
 
-Note about `class name` and `xpath` strategies: these now require the fully-qualified class name for your element. This means that if you had an xpath selector that looked like this:
+关于`class name`和`xpath`的定位方式: 现在需要使用完整的全类名, 这意味着如果你有一个如下的定位用的xpath
 
 ```
 //table/cell/button
 ```
-
-It would now need to be:
+现在需要改成
 
 ```
 //UIATableView/UIATableCell/UIAButton
 ```
 
-(And likewise for Android: `button` now needs to be `android.widget.Button`)
+如果是android的话, `button`需要改变成`android.widget.Button`
 
-We've also added the following locator strategies:
+我们也增加了如下的定位方式
 
 * `-ios uiautomation`
 * `-android uiautomator`
 
-Refer to your client for ways to use these new locator strategies.
+根据你使用的客户端去相应的使用新的定位方式
 
-## XML, not JSON
+## 使用xml, 不再是json了
 
-App source methods, which previously returned JSON, now return XML, so if you have code that relies on parsing the app source, it will need to be updated.
+App source方法先前返回JSON, 现在修改成返回XML. 所以如果你有代码是依赖解析app source的, 那么就需要更新
 
-## Hybrid support through context, not window
+## 通过context支持混合应用, 不再是window了
 
-Hybrid apps were previously supported by switching between "windows" using
+以前混合app的切换支持是通过"windows"
 
 * `window_handles`
 * `window`
 * `switch_to.window`
 
-Now Appium supports the more conceptually consistent concept of "context". To get all of the available contexts, or the particular context the application is is, you use
+现在Appium支持"context" 概念了, 要获得当前环境下所有的上下文(contexts), 或者特定的context, 你可以用
 
 ```python
 driver.contexts
 current = driver.context
 ```
 
-And to switch between them, you use
+在这些context之间切换, 可以使用
 
 ```python
 driver.switch_to.context("WEBVIEW")
 ```
 
-## No more `execute_script("mobile: xxx")`
+## 没有了`execute_script("mobile: xxx")`
 
-All the `mobile: ` methods have been removed, and have been replaced by native methods in the Appium client libraries. This means that a method call like `driver.execute("mobile: lock", [5])` will now look something more like `driver.lock(5)` (where `lock` has been turned into a native client method). Of course, the details on calling these methods will differ by client.
+所有的`mobile:`方法都已经被移除, 并且被替换为appium client libraries的原生方法. 这意味着如果一个方法调用原来的方式是
+`driver.execute("mobile: lock", [5])`
+现在需要更新为
+`driver.lock(5)` 
+在这个地方`lock`已经变成了原生的客户端方法. 当然具体的调用细节在不同的客户端库中的实现可能会有所差别.
 
-Of particular note, the gesture methods have been replaced by the new TouchAction / MultiAction API which allows for a much more powerful and general way of putting gestural automation together. Refer to your Appium client for usage notes on TouchAction / MultiAction.
+特别需要注意的是, 手势(gesture)方法已经被替换为TouchAction / MultiAction API, 它允许更强大通用的组合手势的自动化. 可以参考你的客户端库的具体用法.
 
-And that's it! Happy migrating!
+这就是全部啦, 祝迁移愉快
+
+(文档由testerhome.com翻译, 欢迎更多热爱技术的同学加入到翻译中来, We Love Appium)
+
